@@ -1,9 +1,19 @@
+// -----------------------------------
+// Paste on http://sketch.paperjs.org
+// -----------------------------------
+
+// Modes: 
+// 1. Push mode: item pushes collided items 
+// 2. Stop mode: item stops on collision
+var pushMode = true;
+// -----------------------------------
+
 var x = new Path.Line({
     from: [100, 100],
     to: [200, 100],
     strokeColor: 'red',
     strokeWidth: 20,
-    // strokeCap option: 
+    // NOTE: strokeCap option: 
     // ----------------------------
     // whether set to 'round' or not, hitTest() 
     // behaves as if it is set to 'round'
@@ -105,12 +115,16 @@ function collisionTest(item, curr){
 
 function onMouseMove(event){
     var coll = collisionTest(clearance, event.point)
-    dot.position = coll.point 
-    clearance.position = coll.point
+    dot.position = pushMode ? event.point : coll.point; 
+    clearance.position = dot.position
 
     if(coll.hit){
         alert.fillColor = 'red'
-        coll.hit.item.strokeColor = 'yellow'
+        if (pushMode) {
+            coll.hit.item.position += (event.point - coll.point) 
+        } else {
+            coll.hit.item.strokeColor = 'yellow'
+        }
     } else {
         alert.fillColor = 'green'
     }
