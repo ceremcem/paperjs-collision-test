@@ -3,7 +3,7 @@ Simple collision test function for Paper.js
 
 # Demo
 
-Copy and paste [demo.js](./demo.js) into [Sketcher window](http://sketch.paperjs.org). Select the demo modes by: 
+Copy [demo.js](./demo.js) and paste into [Sketcher window](http://sketch.paperjs.org). Select the demo modes by: 
 
 ```js
 var pushMode = true; // `true` for Push Mode, `false` for stop mode
