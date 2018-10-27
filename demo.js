@@ -39,8 +39,8 @@ var alert = new Path.Rectangle({
     selected: true
 })
 
-// returns item.position that makes the item only touch 
-// to any object 
+// Returns item.position at the moment of collision
+// and the collided object.
 function collisionTest(item, curr){
     var prev = item.position;
     var point = curr.clone();
@@ -50,11 +50,11 @@ function collisionTest(item, curr){
     var firstPass = true;
     var _stopSearching = false;
     var _step = ((curr - prev) / 2).clone();
-    var _acceptable_iter_count = 20;
-            
+    var _acceptable_iter_count = 16;
+    var _max_iter_count = 100;
 
     var i; 
-    for (i = 0; i < 100; i++){
+    for (i = 0; i < _max_iter_count; i++){
         var _hit = project.hitTest(point, {
             fill: true, 
             stroke: true, 
@@ -71,34 +71,34 @@ function collisionTest(item, curr){
         if(_hit){
             hit = _hit;
             // hit has happened between prev and curr points 
-            // step half way forward
-            point.set(point - _step); 
+            // step half way backward
+            point -= _step 
             if (_step.length < _error){
-                // step is too small, stop trials when 
-                // no hit can be found
+                // step is too small, stop trials as soon 
+                // as no hit can be found
                 _stopSearching = true;
-            } else {
-                _step.set(_step / 2)
             }
         } else {
-            if(firstPass){
+            if(firstPass || _stopSearching){
                 break;
-            } else {
-                if (_stopSearching){
-                    break;
-                } else {
-                    // not hit found, but we should 
-                    // step forward to search for more 
-                    // accurate collision point 
-                    point.set(point + _step); 
-                    _step.set(_step / 2)
-                }
+            } else  {
+                // not hit found, but we should 
+                // step forward to search for a more 
+                // accurate collision point 
+                point += _step  
             }
         }
         firstPass = false;
+        if(_step.length >= _error * 2 ) {
+            _step /= 2
+        } else {
+            // minimum step length must be error/2
+            // in order to save loop count 
+            _step = _step.normalize(_error * 0.8)
+        }
     }
     if (i > _acceptable_iter_count){
-        console.log("found at " + i + ". iteration, err: ", _step.length)
+        console.log("found at " + i + ". iteration, step: ", _step.length)
     }
     return {point, hit}
 }
