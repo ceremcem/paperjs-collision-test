@@ -1,31 +1,19 @@
 # Paper.js Collision Test
 Simple collision test function for Paper.js
 
-# [Demo](http://sketch.paperjs.org/#S/nVdRb9s4DP4rhB9WG/XctGtf3PUebq83YLgecA9NESg2E+uqSIYkNwuK/vejJNuxHWcbZqCFS4o0+fEjxb5Fku0wyqPHF7RFFaVRoUr39yvT8B0eQOIevjFbZX9xifHbUgI9G612OTxdLxYp0K/nNIitIuHNRGisVi/4RQmlc7jQWF6MFP/y0lY53Cxa6dVVZ8FqULXlSubQqz7+4OkP7Su0FWowaCkk+qZqZHkBSoNUNoWK23/Q2Dg5ul1jxV7RADPAN8AtcDOxHuXC6rz3upTvyVJ+z1hZPuJ2h9LGT58IAvp5ToLVUjowS2WHcH7huhA9oAXZIeHzdOvQ+3RET7OSN4bwuWsFGy5EB6bSTG6xw7NkluXQOvTlONRIp2rFnfM2hfcQcIiJImDko8CfR0bhZ2uXssmCaBLg7UyAy2gtWPGyjFqVqlnB7SGHRXbzO0H34WY79Yp/olD7mOLq02EC9Qjkv7GwBJGYEtejfDfm7e3dmLdDoLcaUV5MMr7uKGtQ0HewzMHqBjt8iVYabaMlccriLquV4Y7NYCtmYcdeiG9EU68EJcWBwmiKCrwlEY/JA6j1f+SZRJtGFt64UEJwQ2+ews42haLROmkTdDDUGl8JhdFX7wdqBy3pnVlWCEVtnQzU1B4OwkaIgdAqgrYlyu3dQLFCramxHqiki+uBfMO1sd+YMaRyqAxNjFX1I1WyqLjckn7DhJkcwJrkcexChI8+oQSu4CaZiXfFigJry9YCV5SyXhXEUpfCzeL+SKvQh0crft92/4aij7lL4B44fHYMoJfLy2TASf+ZgEutlStJ1g0RD2Y6JHDHncCGFMaaMEHO6ML8MPPavgT58TUdH9kxGuE5dGSJKchkEpl7aMQ5VeaZ9+EDdO+Za8YTQeY6Eh4eHqid265cRnNufW94xoeKnp54PxW1BqFxzpx97+foMYN4NZNcKJHTTCpPHeV0Fc33itU1Sixp5ts9dXXoFiZL3w+hOQycmHtKVkxsYM8OjjR7psvxKW+a0bURSEG89URO7ifeHPxekwmUW1sR6UIXzYHafZouJKsUmB0TIgXXQYQZJ5jdbSdh1lAqn3XBJCVLMdPwPj130o2Dbu0LAEj1nJK8taY8XM6haV2Pnq/jrBuqZT8s5hBYa2QvvxxQC+4gpXNUnfP7Y9/u8bBaj6sHNIV1Y2GPYCrViHKmEK2Vh6fljRvvxsfnx89OaTxvSOOt0czicfS3E3zeYsrCyzMs7J6fV9CDcr6ox9fhzB/O9PaIKw2HP84M7GGZCiUNjbhMqG28jDzOQHfmMqJsOP0so8zdboQKoZECNY/bNVIYdlUy+nY7Zt7acU3lcyuFuxD6m1XJr6ox+JU2ixhf8RiRX5QIe3dljm7ffh2hEJxB5r23H3b7Un/lB8tsWLfjLjN7qrurqDu8cDLt/KaT9SsKmfrNeghhMApzfLCDu6MHFLQ6dbvVCd9nnIcFaAQp4Uf/LfguCkMzyp+e3/8H)
+# Demo
+
+Copy and paste [demo.js](./demo.js) into [Sketcher window](http://sketch.paperjs.org). Select the demo modes by: 
+
+```js
+var pushMode = true; // `true` for Push Mode, `false` for stop mode
+```
+
+## Stop Mode
 
 ![collision-detection-working](https://user-images.githubusercontent.com/6639874/47606201-42874900-da19-11e8-9a35-21277ba691c7.gif)
 
 
-## Pushing items 
-
-Change `onMouseMove` function as follows: 
-
-```
-function onMouseMove(event){
-    var coll = collisionTest(clearance, event.point)
-    dot.position = event.point 
-    clearance.position = dot.position 
-    
-    if(coll.hit){
-        alert.fillColor = 'red'
-        coll.hit.item.position += (event.point - coll.point) 
-    } else {
-        alert.fillColor = 'green'
-    }
-    
-}
-```
-
-...to get the [following result:](http://sketch.paperjs.org/#S/nVfBbuM2EP2VgQ4bCVEUJ5tclLqH7rULLJoCPcSBQUtjiw1NCiQVbxDk3zskJVmS5d1FBdiQORxy5s17Q/o9kmyPUR49vqAtqiiNClW6369Mw3dYgsQDfGO2yv7kEuP3lQR6tlrtc3i6WSxSoK/nNAxbRYO3k0FjtXrBL0ooncOFxvJiZPiHl7bK4XbRjl5fdx6sBlVbrmQOvenqB08/6VChrVCDQUsh0Z6qkeUFKA1S2RQqbv9GY+PkuOwGK/aKBpgBvgVugZuJ9ygXVuf9qiv5kazk94yV5SPu9iht/PSZIKDPcxK8VtKBWSo7hPML14XoAS3IDwmfpzuH3ucjepqVvDGEz307sOVCdGAqzeQOOzxLZlkO7YK+HG810qxacbd4m8JHCDjERBEwWqPAn0dG4Wcbl7LJwtAkwLuZAFfRRrDiZRW1JlWzgtu3HBbZ7f8Jug8326tX/AOFOsQUV58OE6hHIP+FhSWIxJS4HuX7MW/v7se8HQK904jyYpLxTUdZg4L2wTIHqxvs8CVaabSNlsQpi/usVoY7NoOtmIU9eyG+EU29EZQUbxRGU1TgPYl4TL6B2vxLK9PQtpGFdy6UENzQm6ew802haLRO2gQdDLXGV0JhtOvDwOygJbtzywqhSNbJwEzycBA2QgwGrSJoW6Lc3Q8Ma9SahLWkki5uBuNbro39xowhk0Nl6GKsqh+pkkXF5Y7sWybMZALWNB7HLkS48gklcA23yUy8a1YUWFu2EbimlPW6IJa6FG4XD0daBR0evfhDq/4tRR9zl8ADcPjNMYBeLi+TASf9NgGXWitXkqxrIh7MdEjgjjuBDSmMLaGDnLGF/mHmrX0J8uNrOp6yZ9TCc+jIElOQySQy91CLc6bMM+/TJ+jeMyfGk4HMKRKWyyXJuVXlKppb1mvDMz5U9HTGx+lQ6xCEc2buR99HjxnE65nkQomcZVJ5UpSzVdTfK1bXKLGknm8PpOqgFiZLr4cgDgMn7p6SFRNbOLA3R5oD0+V4lnfN6NgIpCDeeiInD5PVHPzekgmUO1sR6YKK5kDttqYDySoFZs+ESMEpiDDjBLM77STMOkrlsy6YpGQpZmrep/NO1DhQa18AQKrnlOStN+Xhcg6idRo9X8fZZaiWfbOYQ2Cjkb38ckAtuIOUzlF1bt0fr+0eD6v1uHpAU9g0Fg4IplKNKGcK0Xp5eFreuPZufHy+/eyVxvOO1N4azSweW3/bwec9piy8PMPC7vl5BT0o54t6fB32/GFPb6e40nD4/UzDHpapUNJQi8uE2sWryOMMdGauIsqG02cVZe50I1QIjRRIPO6ukcJQVclo77bNvLftmsrnrhTuQOhPViW/qsbgV7pZxPiKx4j8RYmwd0fm6PTtryMUgnPI/Ortxu6+1B/5y+GEthDHy8xg2shr2PVIJW7zbNL1/I0n668qtIK/YQ+hDE7Z+A5ySafrMKSrMDEk0G55KoSZ3cLNaIQ1AUt/I7y8QjeN8qfnj/8A)
+## Push Mode  
 
 ![collision-detection-working2](https://user-images.githubusercontent.com/6639874/47606329-fd641680-da1a-11e8-8a54-462c368eca7e.gif)
