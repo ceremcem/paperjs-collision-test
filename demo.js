@@ -5,7 +5,7 @@
 // Modes: 
 // 1. Push mode: item pushes collided items 
 // 2. Stop mode: item stops on collision
-var pushMode = true;
+var pushMode = false;
 // -----------------------------------
 
 var x = new Path.Line({
@@ -60,7 +60,7 @@ function collisionTest(item, curr){
     var firstPass = true;
     var _stopSearching = false;
     var _step = ((curr - prev) / 2).clone();
-    var _acceptable_iter_count = 16;
+    var _acceptable_iter_count = 15;
     var _max_iter_count = 100;
 
     var i; 
@@ -83,11 +83,6 @@ function collisionTest(item, curr){
             // hit has happened between prev and curr points 
             // step half way backward
             point -= _step 
-            if (_step.length < _error){
-                // step is too small, stop trials as soon 
-                // as no hit can be found
-                _stopSearching = true;
-            }
         } else {
             if(firstPass || _stopSearching){
                 break;
@@ -99,12 +94,18 @@ function collisionTest(item, curr){
             }
         }
         firstPass = false;
-        if(_step.length >= _error * 2 ) {
-            _step /= 2
+        if (_step.length < _error){
+            // step is too small, stop trials as soon 
+            // as no hit can be found
+            _stopSearching = true;
+
+            // set a minimum error to save CPU 
+            var _min_error = 0.8 * _error 
+            if (_step.length < _min_error){
+                _step = _step.normalize(_min_error)
+            }
         } else {
-            // minimum step length must be error/2
-            // in order to save loop count 
-            _step = _step.normalize(_error * 0.8)
+            _step /= 2
         }
     }
     if (i > _acceptable_iter_count){
