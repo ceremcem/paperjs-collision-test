@@ -58,7 +58,6 @@ function collisionTest(item, curr){
     var tolerance = 45;
     var _error = 0.01;
     var firstPass = true;
-    var _stopSearching = false;
     var _step = ((curr - prev) / 2).clone();
     var _acceptable_iter_count = 15;
     var _max_iter_count = 100;
@@ -84,27 +83,16 @@ function collisionTest(item, curr){
             // step half way backward
             point -= _step 
         } else {
-            if(firstPass || _stopSearching){
+            if(firstPass || _step.length < _error){
                 break;
-            } else  {
-                // not hit found, but we should 
-                // step forward to search for a more 
-                // accurate collision point 
-                point += _step  
             }
+            // no hit found, but we should 
+            // step forward to search for a more 
+            // accurate collision point 
+            point += _step  
         }
         firstPass = false;
-        if (_step.length < _error){
-            // step is too small, stop trials as soon 
-            // as no hit can be found
-            _stopSearching = true;
-
-            // set a minimum error to save CPU 
-            var _min_error = 0.8 * _error 
-            if (_step.length < _min_error){
-                _step = _step.normalize(_min_error)
-            }
-        } else {
+        if (_step.length >= _error){
             _step /= 2
         }
     }
