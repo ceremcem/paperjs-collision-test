@@ -1,5 +1,5 @@
 # Paper.js Collision Test
-Simple collision test function for Paper.js
+Simple collision test function for Paper.js, regarding to https://stackoverflow.com/q/53017518/1952991
 
 # Demo
 
