@@ -1,5 +1,6 @@
 // -----------------------------------
-// Paste on http://sketch.paperjs.org
+// Run on http://sketch.paperjs.org
+// Maintained at: https://github.com/ceremcem/paperjs-collision-test/
 // -----------------------------------
 
 // Modes: 
